@@ -2,13 +2,59 @@
 <main>
 <section class="hero hero-sm"><div class="wrap"><h1 style="font-size:clamp(36px,5.5vw,60px)" class="grad" data-i="ct"></h1><p class="lead" data-i="cp"></p></div></section>
 <section class="pad0"><div class="wrap split" style="align-items:start">
-<form id="cf" class="panel"><label for="nm" data-i="nm"></label><input id="nm" name="nm" required>
-<label for="em" data-i="em"></label><input id="em" name="em" type="email" required>
-<label for="ms" data-i="ms"></label><textarea id="ms" name="ms" rows="6" required></textarea>
-<button class="btn" type="submit" data-i="sd"></button></form>
+
+<form id="cform" class="panel" novalidate>
+<label for="nm" data-i="nm"></label><input id="nm" name="name" required autocomplete="name">
+<label for="em" data-i="em"></label><input id="em" name="email" type="email" required autocomplete="email">
+<label for="ms" data-i="ms"></label><textarea id="ms" name="message" rows="6" required></textarea>
+<input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+<button class="btn" id="csend" type="submit" data-i="sd"></button>
+<p id="cstat" role="status" aria-live="polite" style="margin-top:16px;font-size:15px;min-height:24px"></p>
+</form>
+
 <div class="grid">
-<a class="card" id="m1" href="#"><div class="ico">✉</div><h3 data-i="cc1t"></h3><p data-i="cc1p"></p></a>
-<a class="card" id="m2" href="#"><div class="ico">🛡</div><h3 data-i="cc2t"></h3><p data-i="cc2p"></p></a>
-<a class="card" href="https://github.com/vylosoftware/VyloSoftware"><div class="ico">⌥</div><h3>GitHub</h3><p data-i="cc3p"></p></a></div></div></section>
+<a class="card" href="mailto:vylo.software@gmail.com"><div class="ico">✉</div><h3 data-i="cc1t"></h3><p data-i="cc1p"></p></a>
+<a class="card" href="mailto:vylo.software@gmail.com?subject=Security%20report"><div class="ico">🛡</div><h3 data-i="cc2t"></h3><p data-i="cc2p"></p></a>
+<a class="card" href="https://github.com/vylosoftware/VyloSoftware"><div class="ico">⌥</div><h3>GitHub</h3><p data-i="cc3p"></p></a></div>
+
+</div></section>
 </main>
-<footer></footer></body></html>
+<footer></footer>
+
+<script>
+(function(){
+var T={
+en:{ok:"Thank you! Your message was sent.",err:"Sending failed. Please try again or email vylo.software@gmail.com.",bad:"Please fill in all fields with a valid email.",busy:"Sending…"},
+de:{ok:"Danke! Deine Nachricht wurde gesendet.",err:"Senden fehlgeschlagen. Bitte versuche es erneut oder schreibe an vylo.software@gmail.com.",bad:"Bitte alle Felder mit gültiger E-Mail ausfüllen.",busy:"Wird gesendet…"},
+es:{ok:"¡Gracias! Tu mensaje fue enviado.",err:"Error al enviar. Inténtalo de nuevo o escribe a vylo.software@gmail.com.",bad:"Rellena todos los campos con un correo válido.",busy:"Enviando…"},
+fr:{ok:"Merci ! Votre message a été envoyé.",err:"Échec de l'envoi. Réessayez ou écrivez à vylo.software@gmail.com.",bad:"Remplissez tous les champs avec un e-mail valide.",busy:"Envoi…"}};
+var f=document.getElementById("cform"),st=document.getElementById("cstat"),b=document.getElementById("csend");
+function t(){return T[document.documentElement.lang]||T.en}
+function say(m,good){st.textContent=m;st.style.color=good?"#4ADE80":"#F87171"}
+f.addEventListener("submit",function(e){
+e.preventDefault();
+if(!f.checkValidity()){say(t().bad,false);return}
+b.disabled=true;b.style.opacity=".6";st.style.color="#D8C8FF";st.textContent=t().busy;
+fetch("https://formsubmit.co/ajax/vylo.software@gmail.com",{
+method:"POST",
+headers:{"Content-Type":"application/json","Accept":"application/json"},
+body:JSON.stringify({
+name:f.name.value,
+email:f.email.value,
+message:f.message.value,
+_replyto:f.email.value,
+_subject:"Vylo website – "+f.name.value,
+_template:"table",
+_captcha:"false",
+_honey:f._honey.value
+})})
+.then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
+.then(function(x){
+if(x.ok&&(x.j.success===true||x.j.success==="true")){say(t().ok,true);f.reset()}
+else{say(t().err,false)}})
+.catch(function(){say(t().err,false)})
+.finally(function(){b.disabled=false;b.style.opacity=""});
+});
+})();
+</script>
+</body></html>
