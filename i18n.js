@@ -1,6 +1,6 @@
 const L={
 en:{home:"Home",product:"Product",security:"Security",privacy:"Privacy",contact:"Contact",
-dl:"Download for Windows",dl2:"View on GitHub",more:"How it works",
+dl:"Download",dl2:"View on GitHub",more:"How it works",
 tg:"Local-first · End-to-end encrypted · Zero-knowledge",
 h1:"Your passwords. <span>Safe with you.</span>",lp:"Vylo builds software with one mission: that everyone can be secure. Encrypted end to end, stored only on your device, readable only by you.",
 k1:"Encryption",k2:"Key derivation rounds",k3:"End-to-end encrypted",k4:"Cloud uploads",
@@ -31,7 +31,7 @@ q4:"How do I move to a new computer?",a4:"Create an encrypted backup, copy the f
 q5:"Which platforms are supported?",a5:"Windows through the installer. macOS and Linux through the Python version (Python 3.9+).",
 ct2:"Ready to lock it down?",
 pt:"VyloVault",ps:"Your digital safe. A password manager for your desktop.",
-dt:"Get the app",dp:"Free download for Windows. macOS and Linux users can run the Python version (Python 3.9+).",dw:"Download for Windows",
+dt:"Get the app",dp:"Free download for Windows. macOS and Linux users can run the Python version (Python 3.9+).",dw:"Download",
 rq:"Details",r1:"Encryption",r1v:"AES + HMAC (Fernet)",r2:"Key derivation",r2v:"PBKDF2, 600,000 rounds",r3:"Languages",r3v:"7",r4:"Platforms",r4v:"Windows, macOS, Linux",
 ins_e:"Setup",ins_t:"Install in 3 steps",in1t:"Download",in1p:"Click the button. The installer starts downloading right away.",in2t:"Run the setup",in2p:"Open VyloVault_Setup.exe and follow the wizard.",in3t:"Create your vault",in3p:"Choose a strong master password and start adding entries.",
 sm_t:"Windows shows a warning?",sm_p:"New apps can trigger Windows SmartScreen. Click “More info”, then “Run anyway”. Only download from our official GitHub.",
